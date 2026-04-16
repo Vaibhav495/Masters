@@ -163,6 +163,116 @@ table 50119 "Artwork Setup"
             DataClassification = CustomerContent;
         }
 
+
+        field(32; "Show json"; Boolean)
+        {
+            DataClassification = CustomerContent;
+        }
+        field(34; "Awaiting Proof"; Code[50])
+        {
+            Caption = 'Awaiting Proof';
+            DataClassification = CustomerContent;
+        }
+        field(35; "In Production"; Code[50])
+        {
+            DataClassification = CustomerContent;
+        }
+
+        field(36; "Ready For Production"; Code[50])
+        {
+            DataClassification = CustomerContent;
+        }
+        field(37; Shipped; Code[50])
+        {
+            DataClassification = CustomerContent;
+        }
+        field(38; "Partially Shipped"; Code[50])
+        {
+            DataClassification = CustomerContent;
+        }
+
+        field(39; "QC Completed"; Code[50])
+        {
+            DataClassification = CustomerContent;
+        }
+        field(40; "Invoiced"; Code[50])
+        {
+            DataClassification = CustomerContent;
+        }
+        field(41; "Order On Hold for payment"; Code[50])
+        {
+            DataClassification = CustomerContent;
+        }
+        field(42; "Credit on Hold"; Code[50])
+        {
+            DataClassification = CustomerContent;
+        }
+        field(43; "Cancel Order"; Code[50])
+        {
+            DataClassification = CustomerContent;
+        }
+        field(44; "Quote to Order"; Code[50])
+        {
+            DataClassification = CustomerContent;
+        }
+        field(45; "Ready to Pick"; Code[50])
+        {
+            DataClassification = CustomerContent;
+        }
+        field(46; "Ready for Shipment"; Code[50])
+        {
+            DataClassification = CustomerContent;
+        }
+        field(47; "AwaitPayWarehouseBucSample"; Code[50])
+        {
+            DataClassification = CustomerContent;
+        }
+        field(48; "WarehouseBucSample"; Code[50])
+        {
+            DataClassification = CustomerContent;
+        }
+        field(49; "Pending PO"; Code[50])
+        {
+            DataClassification = CustomerContent;
+        }
+        field(50; "PO created"; Code[50])
+        {
+            DataClassification = CustomerContent;
+        }
+        field(51; "Vendor Email Pending"; Code[50])
+        {
+            DataClassification = CustomerContent;
+        }
+        field(52; "Blank Order Ready for Prod"; Code[50])
+        {
+            DataClassification = CustomerContent;
+        }
+        field(53; "Download Stream API"; Text[1024])
+        {
+            DataClassification = CustomerContent;
+            Caption = 'Download Stream API';
+        }
+        field(54; "Vendor Email Sent"; Code[50])
+        {
+            DataClassification = CustomerContent;
+        }
+        field(55; "Pending Invoice"; Code[50])
+        {
+            DataClassification = CustomerContent;
+        }
+        field(56; "Pending Payment"; Code[50])
+        {
+            DataClassification = CustomerContent;
+        }
+        field(57; "Payment Made(Partial)"; Code[50])
+        {
+            DataClassification = CustomerContent;
+        }
+        field(58; "Payment Made(Full)"; Code[50])
+        {
+            DataClassification = CustomerContent;
+        }
+
     }
 
     keys

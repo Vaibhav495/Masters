@@ -21,11 +21,12 @@ table 50108 "Sales Shipment Line Carton"
         field(4; "Item No."; Code[20])
         {
             DataClassification = ToBeClassified;
+            TableRelation = Item."No.";//new
         }
-        field(5; "Carton Code"; code[20])
+        field(5; "Carton Code"; code[50])
         {
             DataClassification = ToBeClassified;
-            // TableRelation = "Item Carton"."Carton Code" WHERE("Item No." = field("Item No."));
+            TableRelation = "Item Carton"."Carton Code" WHERE("Item No." = field("Item No."));//Open code new
 
         }
         field(6; "Carton Quantity"; Decimal)
@@ -43,6 +44,8 @@ table 50108 "Sales Shipment Line Carton"
         field(8; "Total Weight"; Decimal)
         {
             DataClassification = ToBeClassified;
+            DecimalPlaces = 2 : 2;
+
         }
         field(9; "Weight Unit of Measurement"; code[10])
         {
@@ -116,6 +119,11 @@ table 50108 "Sales Shipment Line Carton"
         {
             DataClassification = ToBeClassified;
         }
+        field(50; "Tracking No."; Text[18])
+        {
+            DataClassification = CustomerContent;
+        }
+
         field(50100; "Shipment No."; Code[20])
         {
             DataClassification = ToBeClassified;
@@ -160,14 +168,56 @@ table 50108 "Sales Shipment Line Carton"
         {
             DataClassification = ToBeClassified;
         }
+        // PW NG 1.0 08072024 - Tracking shipping >>>
+        field(50076; "Tracking nos."; Text[2048])
+        {
+            Caption = 'Tracking Nos.';
+            DataClassification = CustomerContent;
+        }
+        field(50111; "Box Type"; Text[50])
+        {
+            DataClassification = ToBeClassified;
+            TableRelation = "Box Types"."Box Type";
+        }
+        //  PW NG 1.0 08072024 - Tracking shipping <<<
+        field(50112; "Entry No."; Integer)
+        {
+
+            DataClassification = CustomerContent;
+        }
+        field(51; "Inch"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(52; Shipped; Boolean)
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(53; "Sent to WebEx"; Boolean)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+
     }
+
     keys
     {
-        key(PK; "Document Type", "Document No.", "Line No.", "Item No.", "Carton Code", "Carton Quantity", "Item Quantity", "Shipment sequence")
+        // key(PK; "Document Type", "Document No.", "Line No.", "Item No.", "Entry No.")
+        // {
+        //     Clustered = true;
+        // }
+
+        key(PK; "Document Type", "Document No.", "Line No.", "Item No.", "Carton Code", "Carton Quantity", "Item Quantity", "Shipment sequence", "Entry No.")
         {
             Clustered = true;
         }
     }
+    // trigger OnDelete()
+    // begin
+    //     Message('deleted');
+    // end;
+
 }
 
 

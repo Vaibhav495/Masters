@@ -16,6 +16,13 @@ table 50117 ArtOrderStatus
             Caption = 'Status';
             DataClassification = CustomerContent;
         }
+        field(3; "Show on web"; Boolean)
+        {
+            // FieldClass = FlowField;
+            DataClassification = CustomerContent;
+            //CalcFormula = lookup("Sales Header".Invoice where("Document Type" = field("Document Type"), "No." = field("Order No")));
+        }
+
     }
     keys
     {

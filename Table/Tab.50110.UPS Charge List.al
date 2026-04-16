@@ -29,7 +29,7 @@ table 50110 "UPS Charge  List"
         {
             DataClassification = ToBeClassified;
         }
-        field(7; "Charge Code"; Code[20])
+        field(7; "Charge Code"; Code[100])
         {
             DataClassification = ToBeClassified;
         }
@@ -46,6 +46,10 @@ table 50110 "UPS Charge  List"
             DataClassification = ToBeClassified;
         }
         field(50000; "Delivery Date"; DateTime)
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(11; "Intransit Bussiness Day"; DateTime)
         {
             DataClassification = ToBeClassified;
         }

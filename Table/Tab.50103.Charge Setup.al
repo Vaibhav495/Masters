@@ -40,7 +40,7 @@ table 50103 "Charge Setup"
             end;
         }
 
-        field(5; "Charge Code"; Code[50])
+        field(5; "Charge Code"; Code[100])
         {
             DataClassification = ToBeClassified;
             TableRelation = "Item Charge"."No.";
@@ -77,7 +77,7 @@ table 50103 "Charge Setup"
         field(11; "Imprint Location"; Code[50])
         {
             DataClassification = ToBeClassified;
-            // TableRelation = IF (Type = CONST(Item)) "Item Imprint Location"."Imprint Location" WHERE("Item No." = FIELD("Item No."));vy
+            TableRelation = IF (Type = CONST(Item)) "Item Imprint Location"."Imprint Location code" WHERE("Item No." = FIELD("Item No."));
             trigger OnValidate()
             begin
                 ClearFields();
@@ -86,7 +86,8 @@ table 50103 "Charge Setup"
         field(12; "Imprint Method"; Code[50])
         {
             DataClassification = ToBeClassified;
-            TableRelation = IF (Type = CONST(Item)) "Item Imprint Location"."Imprint Method" WHERE("Item No." = FIELD("Item No."));
+            TableRelation = "Imprint Method".Code;
+            //  TableRelation = IF (Type = CONST(Item)) "Item Imprint Location"."Imprint Method" WHERE("Item No." = FIELD("Item No."));
         }
         field(13; Cost; Decimal)
         {
@@ -110,6 +111,7 @@ table 50103 "Charge Setup"
         field(17; "Catalog Code"; code[10])
         {
             DataClassification = ToBeClassified;
+            TableRelation = Relative.Code;
         }
         field(18; "Website Cost"; Decimal)
         {
@@ -205,11 +207,21 @@ table 50103 "Charge Setup"
             DataClassification = ToBeClassified;
             TableRelation = Imprint_Options.code;
         }
+        field(36; "Rush  Price"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+            DecimalPlaces = 0 : 3;
+        }
+        field(37; "Super Rush  Price"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+            DecimalPlaces = 0 : 3;
+        }
     }
 
     keys
     {
-        key(PK; "Applies To", "Applies To Id", "Type", "Item No.", "Imprint Location", "Imprint Method", "Charge Code", "Starting Date", "Minimum Quantity", "Minimum Stitches")
+        key(PK; "Applies To", "Applies To Id", "Type", "Item No.", "Imprint Location", "Imprint Method", "Charge Code", "Starting Date", "Minimum Quantity", "Minimum Stitches", "Imprint Options")
         {
             Clustered = true;
         }

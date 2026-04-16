@@ -1,4 +1,4 @@
-tableextension 50108 TabExt50108 extends "Ship-to Address"
+tableextension 50108 TabExtShipToAddress extends "Ship-to Address"
 {
     fields
     {
@@ -6,7 +6,12 @@ tableextension 50108 TabExt50108 extends "Ship-to Address"
         {
             DataClassification = CustomerContent;
         }
+        modify("Post Code")
+        {
+            Caption = 'Zip Code';
+        }
     }
+
 
     var
         myInt: Integer;

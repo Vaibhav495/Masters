@@ -12,7 +12,7 @@ table 50101 "Item Carton"
         field(2; "Carton Code"; Code[50])
         {
             DataClassification = ToBeClassified;
-            //TableRelation = "Carton Master"."Carton Code";
+            TableRelation = "Carton Master"."Carton Code";
         }
         field(3; "Carton Quantity"; Decimal)
         {
@@ -43,6 +43,16 @@ table 50101 "Item Carton"
             CaptionML = ENU = 'Weight';
             DataClassification = ToBeClassified;
         }
+        field(9; "Default Web"; Boolean)
+        {
+            CaptionML = ENU = 'Default Web';
+            DataClassification = ToBeClassified;
+        }
+        field(10; "Sequence Web"; Integer)
+        {
+            CaptionML = ENU = 'Sequence Web';
+            DataClassification = ToBeClassified;
+        }
 
     }
 
@@ -52,6 +62,7 @@ table 50101 "Item Carton"
         {
             Clustered = true;
         }
+
     }
 
     var

@@ -12,6 +12,11 @@ page 50100 "Imprint Colors"
         {
             repeater(Group)
             {
+                field(Select; Rec.Select)
+                {
+                    Visible = false;
+                    ApplicationArea = all;
+                }
                 field(Code; Rec.Code)
                 {
                     ApplicationArea = All;

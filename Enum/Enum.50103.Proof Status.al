@@ -16,5 +16,10 @@ enum 50103 "Proof Status"
     }
     value(4; Revised)
     {
+
+    }
+    value(5; "Proof Reuploaded")
+    {
+
     }
 }

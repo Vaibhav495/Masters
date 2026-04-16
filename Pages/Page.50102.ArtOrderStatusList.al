@@ -23,6 +23,10 @@ page 50102 ArtOrderStatusList
                     ToolTip = 'Specifies the value of the Status field';
                     ApplicationArea = All;
                 }
+                field("Show on web"; Rec."Show on web")
+                {
+                    ApplicationArea = all;
+                }
 
             }
         }

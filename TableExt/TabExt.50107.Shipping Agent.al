@@ -1,8 +1,12 @@
-tableextension 50107 TabExt50107 extends "Shipping Agent"
+tableextension 50107 TabExtShipppingAgent extends "Shipping Agent"
 {
     fields
     {
         field(50000; "Address Not Required"; Boolean)
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(50001; Pickup; Boolean)
         {
             DataClassification = ToBeClassified;
         }

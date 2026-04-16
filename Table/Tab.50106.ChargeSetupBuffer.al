@@ -27,7 +27,7 @@ table 50106 "Charge Setup Buffer"
             DataClassification = ToBeClassified;
 
         }
-        field(5; "Charge Code"; Code[50])
+        field(5; "Charge Code"; Code[100])
         {
             DataClassification = ToBeClassified;
             TableRelation = "Item Charge"."No.";

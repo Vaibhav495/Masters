@@ -1,4 +1,4 @@
-tableextension 50109 "InteractionLog Entry" extends "Interaction Log Entry"
+tableextension 50109 TabExtInteractionLogEntry extends "Interaction Log Entry"
 {
     fields
     {

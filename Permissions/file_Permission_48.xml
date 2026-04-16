@@ -1,0 +1,14 @@
+<PermissionSets>
+    <PermissionSet RoleID="SomeRoleId50149" RoleName="Some Role Name">
+    <Permission>
+            <ObjectType>0</ObjectType>
+            <ObjectID>50149</ObjectID>
+            <ReadPermission>1</ReadPermission>
+            <InsertPermission>1</InsertPermission>
+            <ModifyPermission>1</ModifyPermission>
+            <DeletePermission>1</DeletePermission>
+            <ExecutePermission>1</ExecutePermission>
+            <SecurityFilter />
+        </Permission>
+    </PermissionSet>
+</PermissionSets>

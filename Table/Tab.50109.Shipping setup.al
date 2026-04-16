@@ -1,3 +1,4 @@
+
 table 50109 "Shipping Setup"
 {
     fields
@@ -113,6 +114,7 @@ table 50109 "Shipping Setup"
         {
             DataClassification = ToBeClassified;
         }
+
     }
     keys
     {

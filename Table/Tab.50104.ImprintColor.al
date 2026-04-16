@@ -26,6 +26,10 @@ table 50104 "Imprint Color"
             DataClassification = CustomerContent;
             Caption = 'PMS Match';
         }
+        field(50006; Select; Boolean)
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

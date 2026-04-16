@@ -7,8 +7,14 @@ enum 50102 ArtStatusOptions
     value(2; "Awaiting Customer Proof") { }
     value(3; "Art Recreation") { }
     value(4; "Paper Proof Recreation") { }
-    value(5; "Send to CSR") { }
-    value(6; "Customer Approved Paper Proof") { }
+    value(5; "Send to CSR")
+    {
+        Caption = 'Send To Artist';
+    }
+    value(6; "Customer Approved Paper Proof")
+    {
+        Caption = 'Customer Approved';
+    }
     value(7; "Customer Rejected Paper Proof") { }
     value(8; "Customer Approved Paper Proof with Suggestions") { }
     value(9; "Proof Sent to CSR") { }
@@ -25,6 +31,27 @@ enum 50102 ArtStatusOptions
     value(20; "Art in QA") { }
     value(21; "QA Rejected Paper Proof") { }
     value(22; "Art Not Acceptable") { }
-    value(23; "Awaiting Customer Proof Approval") { }
+    value(23; "Awaiting Customer Proof Approval")
+    {
+        Caption = 'Awaiting Approval';
+    }
+    value(24; "Art Yet To Receive") { }
+    value(25; "Awaiting Proof") { }
+    value(26; "Send To ART") { }
+    value(27; "Send To PRODUCTION") { }
+    value(28; "IN PRODUCTION") { }
+
+    value(29; "Shipped") { }
+    value(30; "Cancel") { }
+    value(31; "QC Completed") { }
+    value(32; "New_Order") { }
+    value(33; "Need Revision") { }
+    value(34; "Needs Recreation ") { }
+    value(35; "Ready for Shipment") { }
+    value(36; "Ready for Production") { }
+    value(37; "Proof Internally Approved") { }
+    value(38; "Partially Shipped") { }
+    value(39; "Invoiced") { }
+
 
 }

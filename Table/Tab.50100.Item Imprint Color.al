@@ -33,6 +33,28 @@ table 50100 "Item Imprint Color"
                     Clear("Imprint Color");
             end;
         }
+        field(5; "Match the Logo"; Boolean)
+        {
+            DataClassification = CustomerContent;
+        }
+        field(6; Select; Boolean)
+        {
+            DataClassification = CustomerContent;
+        }
+        // PW NG 1.0 23102023 - Item Sync >>>
+
+        field(7; IsActive; Boolean)
+        {
+            Caption = 'Is Active';
+            DataClassification = CustomerContent;
+        }
+        field(8; IsDefault; Boolean)
+        {
+            Caption = 'Is Default';
+            DataClassification = CustomerContent;
+        }
+
+        // PW NG 1.0 23102023 - Item Sync <<< 
 
 
     }

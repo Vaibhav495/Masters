@@ -1,0 +1,276 @@
+table 50103 "Charge Setup"
+{
+    DataClassification = ToBeClassified;
+
+    fields
+    {
+        field(1; "Applies To"; Option)
+        {
+            CaptionML = ENU = 'Applies To';
+            OptionCaptionML = ENU = 'All Customers,Customer,Customer Price Group,None';
+            OptionMembers = "All Customers",Customer,"Customer Price Group",None;
+            trigger OnValidate()
+            begin
+                ClearFields();
+            end;
+        }
+        field(2; "Applies To Id"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+            TableRelation = IF ("Applies To" = CONST("Customer Price Group")) "Customer Price Group" ELSE
+            IF ("Applies To" = CONST(Customer)) Customer;
+        }
+        field(4; "Item No."; Code[50])
+        {
+            DataClassification = ToBeClassified;
+            TableRelation = IF (Type = CONST(Item)) Item;
+            trigger OnValidate()
+            begin
+                ClearFields();
+            end;
+        }
+        field(3; "Type"; Option)
+        {
+            DataClassification = ToBeClassified;
+            OptionCaptionML = ENU = 'Item,Order';
+            OptionMembers = Item,Order;
+            trigger OnValidate()
+            begin
+                ClearFields();
+            end;
+        }
+
+        field(5; "Charge Code"; Code[50])
+        {
+            DataClassification = ToBeClassified;
+            TableRelation = "Item Charge"."No.";
+            trigger OnValidate()
+            var
+                ItemCharge: Record "Item Charge";
+            begin
+                Clear(Name);
+                if ItemCharge.Get("Charge Code") then
+                    Name := ItemCharge.Description;
+            end;
+        }
+        field(6; Name; Text[100])
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(7; "Charge Price"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+            DecimalPlaces = 0 : 3;
+        }
+        field(8; "Product ID"; Code[50])
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(9; "Starting Date"; Date)
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(10; "Ending Date"; Date)
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(11; "Imprint Location"; Code[50])
+        {
+            DataClassification = ToBeClassified;
+            // TableRelation = IF (Type = CONST(Item)) "Item Imprint Location"."Imprint Location" WHERE("Item No." = FIELD("Item No."));vy
+            trigger OnValidate()
+            begin
+                ClearFields();
+            end;
+        }
+        field(12; "Imprint Method"; Code[50])
+        {
+            DataClassification = ToBeClassified;
+            TableRelation = IF (Type = CONST(Item)) "Item Imprint Location"."Imprint Method" WHERE("Item No." = FIELD("Item No."));
+        }
+        field(13; Cost; Decimal)
+        {
+            DataClassification = ToBeClassified;
+            DecimalPlaces = 0 : 3;
+        }
+        field(14; "Reduced By"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(15; "Minimum Quantity"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(16; "Specific Charge Type"; Option)
+        {
+            DataClassification = ToBeClassified;
+            OptionCaptionML = ENU = ' ,Gift Wrap,Labling';
+            OptionMembers = ,"Gift Wrap",Labling;
+        }
+        field(17; "Catalog Code"; code[10])
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(18; "Website Cost"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+            DecimalPlaces = 0 : 3;
+        }
+        field(19; "Exclude Repeat Order"; Boolean)
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(20; "Maximum Quantity"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(21; "Application Method"; Option)
+        {
+            DataClassification = ToBeClassified;
+            OptionCaptionML = ENU = 'Flat,Quantity';
+            OptionMembers = Flat,Quantity;
+            /*trigger OnValidate()
+
+            begin
+                if "Application Method" = "Application Method"::Custome then
+                    TestField("Charge Type", "Charge Type"::Optional);
+            end;
+            */
+        }
+        field(22; "Full Color"; Boolean)
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(23; "Charge Type"; Option)
+        {
+            DataClassification = ToBeClassified;
+            OptionCaptionML = ENU = 'Standard,Optional';
+            OptionMembers = Standard,Optional;
+
+        }
+        field(24; "Item Attribute"; Text[250])
+        {
+            DataClassification = ToBeClassified;
+            TableRelation = "Item Attribute".Name where(Type = filter(Option | Text));
+            ValidateTableRelation = False;
+        }
+        field(25; Select; Boolean)
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(26; "Pantone Color Charge"; Boolean)
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(27; Colors; Option)
+        {
+            DataClassification = ToBeClassified;
+            OptionMembers = " ","Single Color Only","1st Color","2nd Color","3rd Color","4th Color","5th Color","6th Color","more than two color","Multi Color","Up-to 3 Colors","3-4 Color Imprint";
+            OptionCaptionML = ENU = '  ,Single Color Only,1st Color,2nd Color,3rd Color,4th Color,5th Color,6th Color,more than two color,Multi Color,Up-to 3 Colors,3-4 Color Imprint';
+        }
+        field(28; "Minimum Stitches"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(29; "Maximum Stitches"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(30; "Repeat Orders Only"; Boolean)
+        {
+            DataClassification = ToBeClassified;
+
+        }
+
+        field(31; "Application Type"; Option)
+        {
+            DataClassification = ToBeClassified;
+            OptionCaptionML = ENU = ' ,Per Color,Per Design,Per Location,Per color/ Per design,Per color/Per location';
+            OptionMembers = " ","Per Color","Per Design","Per Location","Per color/ Per design","Per color/Per location";
+        }
+        field(32; "Reduced By Location"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(33; "Parent Product ID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(34; "Color"; Text[100])
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(35; "Imprint Options"; Code[80])
+        {
+            DataClassification = ToBeClassified;
+            TableRelation = Imprint_Options.code;
+        }
+    }
+
+    keys
+    {
+        key(PK; "Applies To", "Applies To Id", "Type", "Item No.", "Imprint Location", "Imprint Method", "Charge Code", "Starting Date", "Minimum Quantity", "Minimum Stitches")
+        {
+            Clustered = true;
+        }
+    }
+
+    var
+        myInt: Integer;
+
+    trigger OnInsert()
+    begin
+
+    end;
+
+    trigger OnModify()
+    begin
+
+    end;
+
+    trigger OnDelete()
+    begin
+
+    end;
+
+    trigger OnRename()
+    begin
+
+    end;
+
+    procedure ClearFields()
+    begin
+
+        /* IF "Applies To" <> xRec."Applies To" THEN
+             "Applies To Id" := '';
+
+         IF Type <> xRec.Type THEN
+             "No." := '';
+
+
+         IF "No." <> xRec."No." THEN BEGIN
+             "Imprint Location" := '';
+             "Imprint Method" := '';
+             Cost := 0;
+             "Reduced By" := 0;
+             "Charge Code" := '';
+             "Application Method" := 1;
+             // "Promo Code" := '';
+             "Minimum Quantity" := 0;
+             "Specific Charge Type" := 1;
+
+         END;
+
+         IF "Imprint Location" <> xRec."Imprint Location" THEN
+             "Imprint Method" := '';
+         Cost := 0;
+         "Reduced By" := 0;
+         "Charge Code" := '';
+         "Application Method" := 1;
+         //"Promo Code" := '';
+         "Minimum Quantity" := 0;
+         "Specific Charge Type" := 1;*/
+
+    end;
+
+}

@@ -1,0 +1,29 @@
+{
+  "id": "652d90f0-5e37-4f4e-9c90-09f9e2f8c22d",
+  "name": "Masters",
+  "publisher": "Powerweave Software Services Pvt Ltd",
+  "version": "1.0.0.6",
+  "brief": "",
+  "description": "This module contains custom fields & Tables . Desgined & Developed by Powerweave Software Services Pvt. Ltd.",
+  "privacyStatement": "",
+  "EULA": "",
+  "help": "",
+  "url": "",
+  "logo": "PW.png",
+  "dependencies": [],
+  "screenshots": [],
+  "platform": "1.0.0.0",
+  "application": "20.0.0.0",
+  "idRanges": [
+    {
+      "from": 50100,
+      "to": 50149
+    }
+  ],
+  "resourceExposurePolicy": {
+    "allowDebugging": true,
+    "allowDownloadingSource": false,
+    "includeSourceInSymbolFile": false
+  },
+  "runtime": "9.0"
+}

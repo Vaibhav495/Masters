@@ -133,9 +133,9 @@ page 50201 "Product Feature List"
 
                             GetWebValue := ProductFeatureDetails.GetDescription();
                             // Web Value
-                          //  TempExcelBuffer.AddColumn(GetWebValue, false, '', false, false, false, '', TempExcelBuffer."Cell Type"::Text);  //VY++++commit
-                            
-                             //VY++++
+                            //  TempExcelBuffer.AddColumn(GetWebValue, false, '', false, false, false, '', TempExcelBuffer."Cell Type"::Text);  //VY++++commit
+
+                            //VY++++
                             if StrLen(GetWebValue) < 250 then
                                 TempExcelBuffer.AddColumn(
                                     GetWebValue,
@@ -179,6 +179,96 @@ page 50201 "Product Feature List"
                 end;
 
             }
+
+            action(ExcelExportAllDate)
+            {
+                Caption = 'Export All Items Data';
+                ApplicationArea = All;
+                Promoted = true;
+                PromotedCategory = Process;
+                PromotedIsBig = true;
+                PromotedOnly = true;
+                Image = Excel;
+                trigger OnAction()
+                var
+                    TempExcelBuffer: Record "Excel Buffer" temporary;
+                    ProductFeatureDetails: Record "Product Feature Description";
+                    GetWebValue: Text;
+                    ReportHeader: Label 'Product Feature';
+                    ExcelFileName: Label 'Product Feature_%1_%2';
+                    OutStream: OutStream;
+                begin
+                    TempExcelBuffer.Reset();
+                    TempExcelBuffer.DeleteAll();
+                    TempExcelBuffer.NewRow();
+                    // Produc No.
+                    TempExcelBuffer.AddColumn(Rec.FieldCaption("Product Code"), false, '', true, false, false, '', TempExcelBuffer."Cell Type"::Text);
+                    // Product Group
+                    TempExcelBuffer.AddColumn(Rec.FieldCaption("Product Group Code"), false, '', true, false, false, '', TempExcelBuffer."Cell Type"::Text);
+                    TempExcelBuffer.AddColumn(Rec.FieldCaption("Product Group Seq"), false, '', true, false, false, '', TempExcelBuffer."Cell Type"::Text);
+                    // Product Group Name
+                    TempExcelBuffer.AddColumn(Rec.FieldCaption("Product Group Name"), false, '', true, false, false, '', TempExcelBuffer."Cell Type"::Text);
+                    // Product Group Seq
+                    TempExcelBuffer.AddColumn(Rec.FieldCaption("Product Group Key Code"), false, '', true, false, false, '', TempExcelBuffer."Cell Type"::Text);
+                    //"Product Key Name"
+                    TempExcelBuffer.AddColumn(Rec.FieldCaption("Product Key Name"), false, '', true, false, false, '', TempExcelBuffer."Cell Type"::Text);
+                    // Web Value
+                    TempExcelBuffer.AddColumn('Value', false, '', true, false, false, '', TempExcelBuffer."Cell Type"::Text);
+                    //"Product Key sequence
+                    TempExcelBuffer.AddColumn(Rec.FieldCaption(Sequence), false, '', true, false, false, '', TempExcelBuffer."Cell Type"::Text);
+                    ProductFeatureDetails.Reset();
+                    ProductFeatureDetails.SetAutoCalcFields("Web Value");
+                    // ProductFeatureDetails.SetRange("Product Code", Rec."Product Code");
+                    if ProductFeatureDetails.FindSet() then
+                        repeat
+                            GetWebValue := '';
+                            TempExcelBuffer.NewRow();
+                            // Produc No.
+                            TempExcelBuffer.AddColumn(ProductFeatureDetails."Product Code", false, '', false, false, false, '', TempExcelBuffer."Cell Type"::Text);
+                            // Product Group
+                            TempExcelBuffer.AddColumn(ProductFeatureDetails."Product Group Code", false, '', false, false, false, '', TempExcelBuffer."Cell Type"::Text);
+                            TempExcelBuffer.AddColumn(ProductFeatureDetails."Product Group Seq", false, '', false, false, false, '', TempExcelBuffer."Cell Type"::Text);
+                            // Product Group Name
+                            TempExcelBuffer.AddColumn(ProductFeatureDetails."Product Group Name", false, '', false, false, false, '', TempExcelBuffer."Cell Type"::Text);
+                            // "Product Key
+                            TempExcelBuffer.AddColumn(ProductFeatureDetails."Product Group Key Code", false, '', false, false, false, '', TempExcelBuffer."Cell Type"::Text);
+                            //"Product Key Name"
+                            TempExcelBuffer.AddColumn(ProductFeatureDetails."Product Key Name", false, '', false, false, false, '', TempExcelBuffer."Cell Type"::Text);
+
+                            GetWebValue := ProductFeatureDetails.GetDescription();
+                            // Web Value
+                            //  TempExcelBuffer.AddColumn(GetWebValue, false, '', false, false, false, '', TempExcelBuffer."Cell Type"::Text);  //VY++++commit
+
+                            //VY++++
+                            if StrLen(GetWebValue) < 250 then
+                                TempExcelBuffer.AddColumn(
+                                    GetWebValue,
+                                    false, '', false, false, false, '',
+                                    TempExcelBuffer."Cell Type"::Text)
+                            else begin
+                                TempExcelBuffer.AddColumn(
+                                    '', false, '', false, false, false, '',
+                                    TempExcelBuffer."Cell Type"::Text);
+
+                                TempExcelBuffer."Cell Value as Blob".CreateOutStream(OutStream);
+                                OutStream.WriteText(GetWebValue);
+                            end;
+                            //VY---
+
+                            //"Product Key sequence
+                            TempExcelBuffer.AddColumn(ProductFeatureDetails.Sequence, false, '', false, false, false, '', TempExcelBuffer."Cell Type"::Number);
+                        until
+                        ProductFeatureDetails.Next() = 0;
+                    TempExcelBuffer.CreateNewBook(ReportHeader);
+                    TempExcelBuffer.WriteSheet(ReportHeader, CompanyName, UserId);
+                    TempExcelBuffer.CloseBook();
+                    TempExcelBuffer.SetFriendlyFilename(StrSubstNo(ExcelFileName, CurrentDateTime, UserId));
+                    TempExcelBuffer.OpenExcel();
+
+                end;
+            }
+
+
         }
     }
     trigger OnAfterGetCurrRecord()

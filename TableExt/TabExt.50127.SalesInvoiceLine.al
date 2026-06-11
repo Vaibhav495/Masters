@@ -284,7 +284,7 @@ tableextension 50127 Ext50127SalesInvLine extends "Sales Invoice Line"
             Caption = 'Tracking Nos.';
             DataClassification = CustomerContent;
         }
-        field(50077; "Price Attributes"; Code[20])
+        field(50077; "Price Attributes"; Code[50])
         {
             DataClassification = ToBeClassified;
             TableRelation = "Web Sales Price Attribute".Code where("Item No." = field("No."));

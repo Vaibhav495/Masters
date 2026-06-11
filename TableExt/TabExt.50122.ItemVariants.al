@@ -87,6 +87,17 @@ tableextension 50122 ItemVariant extends "Item Variant"
             Caption = 'RTIC Inventory Product Code';
             DataClassification = ToBeClassified;
         }
+        //SanmerVY++
+        field(50018; "Sanmer Inventory"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+            DecimalPlaces = 0 : 2;
+        }
+        field(50019; "Wasach Inventory"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+            DecimalPlaces = 0 : 2;
+        }
 
 
     }

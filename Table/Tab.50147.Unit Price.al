@@ -159,12 +159,14 @@ table 50147 "Unit Price"
             DataClassification = ToBeClassified;
 
         }
-        field(27; "Price Attributes"; Code[20])
+        field(27; "Price Attributes"; Code[50])
         {
+
             DataClassification = ToBeClassified;
             ValidateTableRelation = false; //0603
             TableRelation = "Web Sales Price Attribute".Name where("Item No." = field("Item No."));//0603
-                                                                                                   // TableRelation = "Web Sales Price Attribute".Code where("Item No." = field("Item No."));
+
+            // TableRelation = "Web Sales Price Attribute".Code where("Item No." = field("Item No."));
         }
         field(28; "Line No."; Integer)
         {

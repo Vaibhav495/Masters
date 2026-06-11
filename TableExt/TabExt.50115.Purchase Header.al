@@ -47,21 +47,6 @@ tableextension 50115 Purchase_Header extends "Purchase Header"
                     if Rec.Status = Rec.Status::Released then
                         ReleasePurch.PerformManualReopen(Rec);
                     if Rec."Document Type" = Rec."Document Type"::Order then begin
-                        // SalesL.Reset();
-                        // SalesL.SetRange("Purchase Order No.", Rec."No.");
-                        // SalesL.SetRange("Charge Item", false);
-                        // if SalesL.Findset() then
-                        //     repeat
-                        //         SalesL."Package Tracking No." := rec."Tracking No.";
-                        //         SalesL."Tracking no." := Rec."Tracking No.";
-                        //         SalesL."Shipment Date" := Rec."Shipment Date";
-                        //         if SalesL."Next Shipment Date" = 0D then
-                        //             SalesL."Next Shipment Date" := Rec."Shipment Date";
-                        //         SalesL.modify(false);
-                        //         UpdateTrackingDetails(SalesL);//Update tracking details from vendor portal to tables
-                        //                                       //  Mails.RemainderEmail(SalesL);//Payment Mail
-                        //     until SalesL.Next() = 0;
-
                         if PaymentTerms.get(Rec."Prepmt. Payment Terms Code") then
                             Rec."Due Date" := CalcDate(PaymentTerms."Due Date Calculation", Today);
 
@@ -81,19 +66,7 @@ tableextension 50115 Purchase_Header extends "Purchase Header"
                                 Error(GetLastErrorText());
                             end;
 
-                            // SalesL.Reset();
-                            // SalesL.SetRange("Purchase Order No.", Rec."No.");
-                            // SalesL.SetRange("Charge Item", false);
-                            // if SalesL.FindSet() then
-                            //     repeat
-                            //         SalesL."Package Tracking No." := Rec."Tracking No.";
-                            //         SalesL."Tracking no." := Rec."Tracking No.";
-                            //         SalesL."Shipment Date" := Rec."Shipment Date";
-                            //         if SalesL."Next Shipment Date" = 0D then
-                            //             SalesL."Next Shipment Date" := Rec."Shipment Date";
-                            //         SalesL.Modify(false);
-                            //         UpdateTrackingDetails(SalesL);
-                            //     until SalesL.Next() = 0;
+
                         end;
 
                         ///Auto sales order item invoice+++

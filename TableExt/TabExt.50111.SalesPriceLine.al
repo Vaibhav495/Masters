@@ -103,7 +103,7 @@ tableextension 50111 SalesPrice50111 extends "Price List Line"
             DataClassification = ToBeClassified;
 
         }
-        field(50020; "Price Attributes"; Code[20])
+        field(50020; "Price Attributes"; Code[50])
         {
             DataClassification = ToBeClassified;
             TableRelation = "Web Sales Price Attribute".Code where("Item No." = field("Product No."));

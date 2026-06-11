@@ -361,11 +361,12 @@ tableextension 50103 TabExtSalessLine extends "Sales Line"
             Caption = 'Tracking Nos.';
             DataClassification = CustomerContent;
         }
-        field(50077; "Price Attributes"; Code[20])
+        field(50077; "Price Attributes"; Code[50])
         {
             DataClassification = ToBeClassified;
             // TableRelation = "Unit Price"."Price Attributes" where("Price Attributes" = filter(<> ''), "Imprint Method" = field("Imprint Method"), "Item No." = field("No."));
-            TableRelation = "Web Sales Price Attribute".Code where("Item No." = field("No."));
+            TableRelation = "Web Sales Price Attribute".Name where("Item No." = field("No."));
+            ValidateTableRelation = false;
         }
         // PW NG 1.0 08072024 - Tracking shipping <<<
 

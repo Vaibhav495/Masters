@@ -124,10 +124,11 @@ tableextension 50116 PurchaseLine extends "Purchase Line"
         {
             DataClassification = ToBeClassified;
         }
-        field(50081; "Price Attributes"; Code[20])
+        field(50081; "Price Attributes"; Code[50])
         {
             DataClassification = ToBeClassified;
-            TableRelation = "Web Sales Price Attribute".Code where("Item No." = field("No."));
+            ValidateTableRelation = false;
+            TableRelation = "Web Sales Price Attribute".Name where("Item No." = field("No."));
         }
         field(50082; "Shipping Charges"; Boolean)
         {

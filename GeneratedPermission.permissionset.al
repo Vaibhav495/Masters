@@ -158,5 +158,9 @@ permissionset 50100 GeneratedPermission
         tabledata "Special Character ASCII" = RIMD,
         table "Special Character ASCII" = X,
         page "Special Character ASCII List" = X,
-        tabledata "Vendor API Setup" = RIMD;
+        tabledata "Vendor API Setup" = RIMD,
+        tabledata "Vendor Inventory Data" = RIMD,
+        tabledata "Vendor Inven Color Error Log" = RIMD,
+    tabledata "Auto Invoice Posting Log" = RIMD;
+
 }

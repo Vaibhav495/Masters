@@ -21,7 +21,7 @@ table 50139 "Shipment Tracking Details"
         {
             DataClassification = CustomerContent;
         }
-        field(5; "Tracking No."; Code[20])
+        field(5; "Tracking No."; Code[2048])
         {
             DataClassification = CustomerContent;
 

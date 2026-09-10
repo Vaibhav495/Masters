@@ -27,7 +27,7 @@ tableextension 50115 Purchase_Header extends "Purchase Header"
         {
             DataClassification = ToBeClassified;
         }
-        field(50047; "Tracking No."; Code[20])
+        field(50047; "Tracking No."; Code[2048])
         {
             DataClassification = ToBeClassified;
             trigger OnValidate()
@@ -42,26 +42,12 @@ tableextension 50115 Purchase_Header extends "Purchase Header"
                 PaymentTerms: Record "Payment Terms";
                 RecCust: Record customer;
                 TrackingSingleIns: Codeunit "SingleIns Tracking Error";
+                SalesRecSetup: Record "Sales & Receivables Setup";
             begin
                 if Rec."Tracking No." <> '' then begin
                     if Rec.Status = Rec.Status::Released then
                         ReleasePurch.PerformManualReopen(Rec);
                     if Rec."Document Type" = Rec."Document Type"::Order then begin
-                        // SalesL.Reset();
-                        // SalesL.SetRange("Purchase Order No.", Rec."No.");
-                        // SalesL.SetRange("Charge Item", false);
-                        // if SalesL.Findset() then
-                        //     repeat
-                        //         SalesL."Package Tracking No." := rec."Tracking No.";
-                        //         SalesL."Tracking no." := Rec."Tracking No.";
-                        //         SalesL."Shipment Date" := Rec."Shipment Date";
-                        //         if SalesL."Next Shipment Date" = 0D then
-                        //             SalesL."Next Shipment Date" := Rec."Shipment Date";
-                        //         SalesL.modify(false);
-                        //         UpdateTrackingDetails(SalesL);//Update tracking details from vendor portal to tables
-                        //                                       //  Mails.RemainderEmail(SalesL);//Payment Mail
-                        //     until SalesL.Next() = 0;
-
                         if PaymentTerms.get(Rec."Prepmt. Payment Terms Code") then
                             Rec."Due Date" := CalcDate(PaymentTerms."Due Date Calculation", Today);
 
@@ -80,108 +66,84 @@ tableextension 50115 Purchase_Header extends "Purchase Header"
                                 TrackingSingleIns.SetPostingError(Rec."No.", GetLastErrorText());
                                 Error(GetLastErrorText());
                             end;
-
-                            // SalesL.Reset();
-                            // SalesL.SetRange("Purchase Order No.", Rec."No.");
-                            // SalesL.SetRange("Charge Item", false);
-                            // if SalesL.FindSet() then
-                            //     repeat
-                            //         SalesL."Package Tracking No." := Rec."Tracking No.";
-                            //         SalesL."Tracking no." := Rec."Tracking No.";
-                            //         SalesL."Shipment Date" := Rec."Shipment Date";
-                            //         if SalesL."Next Shipment Date" = 0D then
-                            //             SalesL."Next Shipment Date" := Rec."Shipment Date";
-                            //         SalesL.Modify(false);
-                            //         UpdateTrackingDetails(SalesL);
-                            //     until SalesL.Next() = 0;
                         end;
 
-                        ///Auto sales order item invoice+++
-                        // if Rec."Completely Received" then begin
-                        SHInvoice := false;
-                        SalesH.Reset();
-                        SalesH.SetRange(SalesH."No.", Rec."Sales Order No");
-                        if SalesH.FindFirst() then begin
-                            if RecCust.get(SalesH."Sell-to Customer No.") then;
-                            if Not RecCust."VIP Customer" then begin
-                                SalesLineL.Reset();
-                                SalesLineL.SetRange("Document Type", SalesH."Document Type");
-                                SalesLineL.SetRange("Document No.", SalesH."No.");
-                                // SalesLineL.SetFilter("Quantity Shipped", '<>%1', 0);
-                                if SalesLineL.FindSet() then
-                                    repeat
-                                        if SalesLineL."Quantity Shipped" = 0 then //if all lines are shipped then only auto invoice
-                                            SHInvoice := true;
-                                    //      if SalesLineL1.GET(SalesLineL."Document Type", SalesLineL."Document No.", SalesLineL."Line No.") then begin
-                                    //     if SalesLineL."Purchase Order No." = Rec."No." then begin
-                                    //         SalesLineL1.Validate(SalesLineL1."Qty. to Invoice", SalesLineL1.Quantity);
-                                    //         SalesLineL1.Modify(true);
-                                    //         SHInvoice := true;
-                                    //     end else begin
-                                    //         SalesLineL1.Validate(SalesLineL1."Qty. to Invoice", 0);
-                                    //         SalesLineL1.Modify(true);
-                                    //     end;
-                                    // end;
-                                    until SalesLineL.next() = 0;
+                        ///Auto sales order item invoice+++.
+                        SalesRecSetup.Get();
+                        if SalesRecSetup.AutoInvoiceforsample then begin
+                            // if Rec."Completely Received" then begin
+                            SHInvoice := false;
+                            SalesH.Reset();
+                            SalesH.SetRange(SalesH."No.", Rec."Sales Order No");
+                            if SalesH.FindFirst() then begin
+                                if RecCust.get(SalesH."Sell-to Customer No.") then;
+                                if SalesH."Payment Bucket Filter" then begin //prepay filter //VY1007
+                                                                             //  if Not RecCust."VIP Customer" then begin
+                                    SalesLineL.Reset();
+                                    SalesLineL.SetRange("Document Type", SalesH."Document Type");
+                                    SalesLineL.SetRange("Document No.", SalesH."No.");
+                                    // SalesLineL.SetFilter("Quantity Shipped", '<>%1', 0);
+                                    if SalesLineL.FindSet() then
+                                        repeat
+                                            if SalesLineL."Quantity Shipped" = 0 then //if all lines are shipped then only auto invoice
+                                                SHInvoice := true;
+                                        until SalesLineL.next() = 0;
 
-                                //>>VY 
-                                if not SHInvoice then begin
-                                    SalesH.Validate("Posting Date", WorkDate());
-                                    SalesH.Invoice := true;
-                                    SalesH.Modify(false);
-                                    Codeunit.Run(80, SalesH);
-                                end;
-                            end;
-                            //<<VY 
-                        end;
-                        //end;
-                        ///Auto sales order item invoice---
-                    end;
-
-                    //PurchaseInvoice and related order Auto Ship with webexsono
-                    if Rec."Document Type" = Rec."Document Type"::Invoice then begin
-                        Rec.Validate("Posting Date", WorkDate());
-                        Rec.Invoice := true;
-                        Codeunit.Run(90, Rec);
-                        // Sales order ship/invoice
-                        SalesH.Reset();
-                        SalesH.SetRange(SalesH."No.", Rec."WebEx SO No.");
-                        if SalesH.FindFirst() then begin
-                            SalesLineL.Reset();
-                            SalesLineL.SetRange("Document Type", SalesH."Document Type");
-                            SalesLineL.SetRange("Document No.", SalesH."No.");
-                            if SalesLineL.FindSet() then
-                                repeat
-                                    if SalesLineL."Quantity Shipped" = 0 then
-                                        SHInvoice := true;
-                                    if (SalesLineL."Line No." = Rec."WebEx SO Line No.") OR (SalesLineL."Ref. Line No." = Rec."WebEx SO Line No.") then begin
-                                        SalesLineL.Validate(SalesLineL."Qty. to Ship", SalesLineL.Quantity);
-                                        SalesLineL.Modify(true);
-                                        SHInvoice := true;
-                                    end else begin
-                                        SalesLineL.Validate(SalesLineL."Qty. to Ship", 0);
-                                        SalesLineL.Modify(true);
+                                    //>>VY 
+                                    if not SHInvoice then begin
+                                        SalesH.Validate("Posting Date", WorkDate());
+                                        SalesH.Invoice := true;
+                                        SalesH.Modify(false);
+                                        Codeunit.Run(80, SalesH);
                                     end;
-                                until SalesLineL.next() = 0;
-                            //>>VY 
-                            if SHInvoice then begin
-                                SalesH.Validate("Posting Date", WorkDate());
-                                SalesH.Ship := true;
-                                SalesH.Invoice := true;
-                                SalesH.Modify(false);
-                                Codeunit.Run(80, SalesH);
+                                end;
+                                //<<VY 
+                                // end;
+                                //end;
+                                ///Auto sales order item invoice---
                             end;
-                        End;
+
+                            //PurchaseInvoice and related order Auto Ship with webexsono
+                            if Rec."Document Type" = Rec."Document Type"::Invoice then begin
+                                Rec.Validate("Posting Date", WorkDate());
+                                Rec.Invoice := true;
+                                Codeunit.Run(90, Rec);
+                                // Sales order ship/invoice
+                                SalesH.Reset();
+                                SalesH.SetRange(SalesH."No.", Rec."WebEx SO No.");
+                                if SalesH.FindFirst() then begin
+                                    SalesLineL.Reset();
+                                    SalesLineL.SetRange("Document Type", SalesH."Document Type");
+                                    SalesLineL.SetRange("Document No.", SalesH."No.");
+                                    if SalesLineL.FindSet() then
+                                        repeat
+                                            if SalesLineL."Quantity Shipped" = 0 then
+                                                SHInvoice := true;
+                                            if (SalesLineL."Line No." = Rec."WebEx SO Line No.") OR (SalesLineL."Ref. Line No." = Rec."WebEx SO Line No.") then begin
+                                                SalesLineL.Validate(SalesLineL."Qty. to Ship", SalesLineL.Quantity);
+                                                SalesLineL.Modify(true);
+                                                SHInvoice := true;
+                                            end else begin
+                                                SalesLineL.Validate(SalesLineL."Qty. to Ship", 0);
+                                                SalesLineL.Modify(true);
+                                            end;
+                                        until SalesLineL.next() = 0;
+
+                                    if not SalesH."Payment Bucket Filter" then //Net terms //VY1007
+                                        SHInvoice := false;
+
+                                    //>>VY 
+                                    if SHInvoice then begin
+                                        SalesH.Validate("Posting Date", WorkDate());
+                                        SalesH.Ship := true;
+                                        SalesH.Invoice := true;
+                                        SalesH.Modify(false);
+                                        Codeunit.Run(80, SalesH);
+                                    end;
+                                End;
+                            end;
+                        end;
                     end;
-
-
-
-
-
-                    // if Rec."Last Receiving No." = '' then begin
-                    //     Rec."Tracking No." := '';
-                    //     Rec.Modify(false);
-                    // end;
                 end;
             END;
         }
@@ -241,7 +203,7 @@ tableextension 50115 Purchase_Header extends "Purchase Header"
         {
             DataClassification = CustomerContent;
         }
-        field(50059; "Order Status VendorP"; Text[100])
+        field(50059; "Order Status VendorP"; Text[2048])
         {
             DataClassification = ToBeClassified;
         }

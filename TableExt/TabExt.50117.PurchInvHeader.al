@@ -15,9 +15,17 @@ tableextension 50117 PurchaseInvHeadaer extends "Purch. Inv. Header"
         {
             DataClassification = ToBeClassified;
         }
-        field(50047; "Tracking No."; Code[20])
+        field(50047; "Tracking No."; Code[2048])
         {
             DataClassification = ToBeClassified;
+        }
+        field(50059; "Order Status VendorP"; Text[2048])
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(50060; "PO Sent Details"; Text[500])
+        {
+            DataClassification = CustomerContent;
         }
         field(50062; "Third Party Shipping"; Boolean)
         {
@@ -141,6 +149,7 @@ tableextension 50117 PurchaseInvHeadaer extends "Purch. Inv. Header"
         {
             DataClassification = ToBeClassified;
         }
+
 
 
         field(50336; "Vendor Refund"; Decimal)

@@ -220,7 +220,7 @@ table 50112 Artwork
             DataClassification = CustomerContent;
             Caption = 'Proof Sent DateTime';
         }
-        field(25; "Approved by Signature"; text[50])
+        field(25; "Approved by Signature"; text[100])
         {
             DataClassification = CustomerContent;
             Caption = 'Approved by Signature';
@@ -788,7 +788,7 @@ table 50112 Artwork
             DataClassification = CustomerContent;
             Caption = 'Previous Screen #2';
         }
-        field(131; "Note To Customer"; Text[100])
+        field(131; "Note To Customer"; Text[500])
         {
             DataClassification = CustomerContent;
             Caption = 'Note To Customer';

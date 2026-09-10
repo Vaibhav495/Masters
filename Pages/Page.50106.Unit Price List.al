@@ -286,8 +286,12 @@ page 50506 "Unit Price"
                     PriceListLine: Record "Price List Line";
                     UnitPrice: Record "Unit Price";
                     LineNo: Integer;
+                    ItemMaster: Record Item;
                 begin
                     IF Confirm('Do you want to update Price?') THEN BEGIN
+                        ItemMaster.Reset();
+                        ItemMaster.SetRange("No.", Rec."Item No.");
+                        if ItemMaster.FindFirst() then;
                         //>>Check Imprint wise Price code
                         ImprintMethodMaster.Reset();
                         ImprintMethodMaster.SetRange(ImprintMethodMaster."Vendor No.", Rec."Vendor No.");
@@ -378,6 +382,7 @@ page 50506 "Unit Price"
                                         PriceListLine."Super Rush LP on web" := UnitPrice."Super Rush LP on web";
                                         PriceListLine."Super Rush Price Attribute" := UnitPrice."Super Rush Price Attribute";
                                         PriceListLine."Rush Price Attribute" := UnitPrice."Rush Price Attribute";
+                                        PriceListLine."Allow Invoice Disc." := ItemMaster."Allow Invoice Disc.";//0608
                                         //PriceListLine.PriceBreakNameNew := UnitPrice.PriceBreakNameNew;
                                         PriceListLine.Insert();
                                         UnitPrice."Pending update" := false;

@@ -24,6 +24,7 @@ table 50133 "Web Sales Price Attribute"
         {
             Caption = 'Name';
             DataClassification = CustomerContent;
+
         }
     }
     keys

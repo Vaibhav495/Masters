@@ -361,11 +361,12 @@ tableextension 50103 TabExtSalessLine extends "Sales Line"
             Caption = 'Tracking Nos.';
             DataClassification = CustomerContent;
         }
-        field(50077; "Price Attributes"; Code[20])
+        field(50077; "Price Attributes"; Code[50])
         {
             DataClassification = ToBeClassified;
             // TableRelation = "Unit Price"."Price Attributes" where("Price Attributes" = filter(<> ''), "Imprint Method" = field("Imprint Method"), "Item No." = field("No."));
-            TableRelation = "Web Sales Price Attribute".Code where("Item No." = field("No."));
+            TableRelation = "Web Sales Price Attribute".Name where("Item No." = field("No."));
+            ValidateTableRelation = false;
         }
         // PW NG 1.0 08072024 - Tracking shipping <<<
 
@@ -473,11 +474,12 @@ tableextension 50103 TabExtSalessLine extends "Sales Line"
         // if ArtworkLog.FindFirst() then
         //     ArtworkLog.Delete(true);
 
-        purchLine.Reset();
-        purchLine.SetRange("Sales Order No.", "Document No.");
-        purchLine.SetRange("Sales Order Line No.", "Line No.");
-        if not purchLine.IsEmpty then // PW NG 1.0 16082023 - Error on deleting sales line if Artwork sheet is blank
-            purchLine.DeleteAll(false);
+        /* commeted //VY1007.1
+                purchLine.Reset();
+                purchLine.SetRange("Sales Order No.", "Document No.");
+                purchLine.SetRange("Sales Order Line No.", "Line No.");
+                if not purchLine.IsEmpty then // PW NG 1.0 16082023 - Error on deleting sales line if Artwork sheet is blank
+                    purchLine.DeleteAll(false);*/
 
         SalesShipmentLineCarton.Reset();
         SalesShipmentLineCarton.SetRange("Document Type", Rec."Document Type");

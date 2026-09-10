@@ -11,7 +11,7 @@ tableextension 50118 PurchaseReceiptHeader extends "Purch. Rcpt. Header"
         {
             DataClassification = ToBeClassified;
         }
-        field(50047; "Tracking No."; Code[20])
+        field(50047; "Tracking No."; Code[2048])
         {
             DataClassification = ToBeClassified;
         }

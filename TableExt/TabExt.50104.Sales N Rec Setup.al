@@ -678,6 +678,64 @@ tableextension 50104 TabExSalesRecSetup extends "Sales & Receivables Setup"
             DataClassification = CustomerContent;
             Caption = 'RTIC Key';
         }
+        //SanmerVY++
+        field(50249; "Sanmer Inventory API"; Text[500])
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(50250; "Sanmer id"; Text[100])
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(50251; "Sanmer password"; Text[100])
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(50252; "Sanmar Vendor"; Code[20])
+        {
+            DataClassification = CustomerContent;
+            TableRelation = Vendor."No.";
+        }
+        //SanmerVY--
+
+        //SanmerVY++
+        field(50253; "Wasach Inventory API"; Text[500])
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(50254; "Wasach id"; Text[100])
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(50255; "Wasach password"; Text[100])
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(50256; "Wasach Vendor"; Code[20])
+        {
+            DataClassification = CustomerContent;
+            TableRelation = Vendor."No.";
+        }
+
+        field(50257; "S&S Inventory API"; Text[500])
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(50258; "S&S id"; Text[100])
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(50259; "S&S password"; Text[100])
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(50260; "S&S Vendor"; Code[20])
+        {
+            DataClassification = CustomerContent;
+            TableRelation = Vendor."No.";
+        }
+
+
     }
 
 

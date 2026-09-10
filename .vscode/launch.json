@@ -6,15 +6,14 @@
             "request": "launch",
             "type": "al",
             "environmentType": "Sandbox",
-            "environmentName":  "Sandbox",
+            "environmentName":  "ProdCopy",
             "startupObjectId": 22,
             "startupObjectType": "Page",
             "breakOnError": true,
             "launchBrowser": true,
             "enableLongRunningSqlStatements": true,
-            "enableSqlInformationDebugger": true,
             "schemaUpdateMode": "Synchronize"
-           //"schemaUpdateMode": "ForceSync"
+          //"schemaUpdateMode": "ForceSync"
         },
         // {
         //     "name": "Microsoft cloud sandbox",

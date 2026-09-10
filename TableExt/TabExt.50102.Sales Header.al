@@ -917,7 +917,7 @@ tableextension 50102 TabExtSalesHeader extends "Sales Header"
         field(50325; "ShippingChargeBI"; Boolean)
         {
             FieldClass = FlowField;
-            CalcFormula = exist("Sales Line" where("Document No." = Field("No."), "Shipping Charges" = filter(true), "Is Item changed" = filter(true)));
+            CalcFormula = exist("Sales Line" where("Document No." = Field("No."), "Document Type" = field("Document Type"), "Shipping Charges" = filter(true), "Is Item changed" = filter(true)));
         }
         field(50326; "ItemChargeBI"; Boolean)
         {
@@ -927,12 +927,34 @@ tableextension 50102 TabExtSalesHeader extends "Sales Header"
         field(50327; "ShippingChargeBIValue"; Decimal)
         {
             FieldClass = FlowField;
-            CalcFormula = Sum("Sales Line"."Amount Including VAT" where("Document No." = Field("No."), "Shipping Charges" = filter(true), "Is Item changed" = filter(true)));
+            //CalcFormula = Sum("Sales Line"."Amount Including VAT" where("Document No." = Field("No."), "Document Type" = field("Document Type"), "Shipping Charges" = filter(true), "Is Item changed" = filter(true)));
+            CalcFormula = Sum("Sales Line"."Amount Including VAT" where("Document No." = Field("No."), "Document Type" = field("Document Type"), "No." = filter('SHIPPING')));
         }
         field(50328; "ItemChargeBIValue"; Decimal)
         {
             FieldClass = FlowField;
-            CalcFormula = Sum("Sales Line"."Amount Including VAT" where("Document No." = Field("No."), "Shipping Charges" = filter(false), "Is Item changed" = filter(true)));
+            CalcFormula = Sum("Sales Line"."Amount Including VAT" where("Document No." = Field("No."), "Document Type" = field("Document Type"), "No." = filter(<> 'SHIPPING'), "Ref. Item No." = filter(<> '')));
+            //CalcFormula = Sum("Sales Line"."Amount Including VAT" where("Document No." = Field("No."), "Document Type" = field("Document Type"), "Shipping Charges" = filter(false), "Is Item changed" = filter(true)));
+        }
+        // field(50329; "ShippingChargeBIValueOLD"; Decimal)
+        // {
+        //     FieldClass = FlowField;
+        //     CalcFormula = Sum("Sales Line"."Amount Including VAT" where("Document No." = Field("No."), "Document Type" = field("Document Type"), "No." = filter('SHIPPING')));
+        // }
+        // field(50330; "ItemChargeBIValueOLD"; Decimal)
+        // {
+        //     FieldClass = FlowField;
+        //     CalcFormula = Sum("Sales Line"."Amount Including VAT" where("Document No." = Field("No."), "Document Type" = field("Document Type"), "Shipping Charges" = filter(false), "Is Item changed" = filter(true)));
+        // }
+        field(50329; "Shipped Date"; Date)
+        {
+            Caption = 'Shipped Date';
+            // Editable = false;
+            DataClassification = CustomerContent;
+        }
+        field(50330; "Invoiced Through Job"; Boolean)
+        {
+            DataClassification = CustomerContent;
         }
 
 

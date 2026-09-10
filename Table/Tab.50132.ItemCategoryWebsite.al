@@ -82,7 +82,7 @@ table 50132 "Item Category Website"
     }
     keys
     {
-        key(PK; "Item No.", "Item Category Code", "Item Sub Category Code", "Item Sub Sub Category Code")
+        key(PK; "Item No.", "Item Category Code", "Item Sub Category Code", "Item Sub Sub Category Code", "Item Sub Sub Sub Category Code")
         {
             Clustered = true;
         }

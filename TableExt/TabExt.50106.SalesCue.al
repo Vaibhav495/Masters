@@ -696,7 +696,7 @@ tableextension 50106 TabExtSalesCue extends "Sales Cue"
         }
         field(50214; "Pending PO Conversion"; Integer)
         {
-            CalcFormula = count("Sales Header" WHERE("Document Type" = CONST(Order), "cancelled Order" = filter(false), "Order On Hold" = filter(false), "PO No." = filter(= ''), "SO Confirmation Send" = filter(true), "Completely Shipped" = filter(False), Invoice = filter(false), PendingPOStatusFilter = filter(true)));
+            CalcFormula = count("Sales Header" WHERE("Document Type" = CONST(Order), "cancelled Order" = filter(false), "Order On Hold" = filter(false), "PO No." = filter(= ''), "Completely Shipped" = filter(False), Invoice = filter(false), PendingPOStatusFilter = filter(true), "Acknow Sent Details" = FILTER(<> '')));
             Editable = false;
             FieldClass = FlowField;
         }
@@ -735,7 +735,7 @@ tableextension 50106 TabExtSalesCue extends "Sales Cue"
         }
         field(50221; "Pending PO Conversion Over"; Integer)
         {
-            CalcFormula = count("Sales Header" WHERE("Document Type" = CONST(Order), "cancelled Order" = filter(false), "Order On Hold" = filter(false), "PO No." = filter(= ''), "SO Confirmation Send" = filter(true), "Completely Shipped" = filter(False), Invoice = filter(false), Vendor_Overseas = filter(True)));
+            CalcFormula = count("Sales Header" WHERE("Document Type" = CONST(Order), "cancelled Order" = filter(false), "Order On Hold" = filter(false), "PO No." = filter(= ''), "Completely Shipped" = filter(False), Invoice = filter(false), Vendor_Overseas = filter(True), "Acknow Sent Details" = FILTER(<> '')));
             Editable = false;
             FieldClass = FlowField;
         }
@@ -806,7 +806,7 @@ tableextension 50106 TabExtSalesCue extends "Sales Cue"
         }
         field(50228; "Pending PO Conversion USPP"; Integer)
         {
-            CalcFormula = count("Sales Header" WHERE("Document Type" = CONST(Order), "cancelled Order" = filter(false), "Order On Hold" = filter(false), "PO No." = filter(= ''), "SO Confirmation Send" = filter(true), "Completely Shipped" = filter(False), Invoice = filter(false), Vendor_USPP = filter(True), PendingPOStatusFilter = filter(true)));
+            CalcFormula = count("Sales Header" WHERE("Document Type" = CONST(Order), "cancelled Order" = filter(false), "Order On Hold" = filter(false), "PO No." = filter(= ''), "Completely Shipped" = filter(False), Invoice = filter(false), Vendor_USPP = filter(True), PendingPOStatusFilter = filter(true), "Acknow Sent Details" = FILTER(<> '')));
             Editable = false;
             FieldClass = FlowField;
         }

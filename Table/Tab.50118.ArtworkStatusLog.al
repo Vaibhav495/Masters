@@ -89,7 +89,7 @@ table 50118 ArtworkStatusLog
             DataClassification = CustomerContent;
             //  Caption = 'Note To Customer';
         }
-        field(17; "Tracking No."; Code[20])
+        field(17; "Tracking No."; Code[2048])
         {
             DataClassification = ToBeClassified;
         }

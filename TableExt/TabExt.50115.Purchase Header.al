@@ -66,6 +66,11 @@ tableextension 50115 Purchase_Header extends "Purchase Header"
                                 TrackingSingleIns.SetPostingError(Rec."No.", GetLastErrorText());
                                 Error(GetLastErrorText());
                             end;
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 77f4a31614896325543c57e318ac4648348b36b7
                         end;
 
                         ///Auto sales order item invoice+++.

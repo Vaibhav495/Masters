@@ -935,6 +935,7 @@ tableextension 50102 TabExtSalesHeader extends "Sales Header"
             FieldClass = FlowField;
             CalcFormula = Sum("Sales Line"."Amount Including VAT" where("Document No." = Field("No."), "Document Type" = field("Document Type"), "No." = filter(<> 'SHIPPING'), "Ref. Item No." = filter(<> '')));
             //CalcFormula = Sum("Sales Line"."Amount Including VAT" where("Document No." = Field("No."), "Document Type" = field("Document Type"), "Shipping Charges" = filter(false), "Is Item changed" = filter(true)));
+<<<<<<< HEAD
         }
         // field(50329; "ShippingChargeBIValueOLD"; Decimal)
         // {
@@ -955,7 +956,19 @@ tableextension 50102 TabExtSalesHeader extends "Sales Header"
         field(50330; "Invoiced Through Job"; Boolean)
         {
             DataClassification = CustomerContent;
+=======
+>>>>>>> 77f4a31614896325543c57e318ac4648348b36b7
         }
+        // field(50329; "ShippingChargeBIValueOLD"; Decimal)
+        // {
+        //     FieldClass = FlowField;
+        //     CalcFormula = Sum("Sales Line"."Amount Including VAT" where("Document No." = Field("No."), "Document Type" = field("Document Type"), "No." = filter('SHIPPING')));
+        // }
+        // field(50330; "ItemChargeBIValueOLD"; Decimal)
+        // {
+        //     FieldClass = FlowField;
+        //     CalcFormula = Sum("Sales Line"."Amount Including VAT" where("Document No." = Field("No."), "Document Type" = field("Document Type"), "Shipping Charges" = filter(false), "Is Item changed" = filter(true)));
+        // }
 
 
         modify("Bill-to Post Code")

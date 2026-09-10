@@ -717,6 +717,7 @@ tableextension 50104 TabExSalesRecSetup extends "Sales & Receivables Setup"
             TableRelation = Vendor."No.";
         }
 
+<<<<<<< HEAD
         field(50257; "S&S Inventory API"; Text[500])
         {
             DataClassification = ToBeClassified;
@@ -735,6 +736,8 @@ tableextension 50104 TabExSalesRecSetup extends "Sales & Receivables Setup"
             TableRelation = Vendor."No.";
         }
 
+=======
+>>>>>>> 77f4a31614896325543c57e318ac4648348b36b7
 
     }
 

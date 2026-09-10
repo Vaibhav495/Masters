@@ -98,6 +98,7 @@ tableextension 50122 ItemVariant extends "Item Variant"
             DataClassification = ToBeClassified;
             DecimalPlaces = 0 : 2;
         }
+<<<<<<< HEAD
         field(50020; "S&S Inventory"; Decimal)
         {
             DataClassification = ToBeClassified;
@@ -108,6 +109,8 @@ tableextension 50122 ItemVariant extends "Item Variant"
             DataClassification = ToBeClassified;
             DecimalPlaces = 0 : 2;
         }
+=======
+>>>>>>> 77f4a31614896325543c57e318ac4648348b36b7
 
 
     }
